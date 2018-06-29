@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga'
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
-import { fetch1 } from './mocks';
+import { fetch1, fetch2 } from './mocks';
 
 export function* helloSaga() {
 	console.log('the sagaaaa!!');
@@ -16,9 +16,17 @@ export function* watchIncrementAsync() {
 }
 
 export function* fetch() {
-	// yield put({type: 'FETCH_1'} )
+	// const postRequest = yield call(request, requestURL, {
+	// 	method: 'POST',
+	// });
+
 	try {
-		const data = yield call(fetch1);
+		const data1 = yield call(fetch1);
+		console.log("data1",data1);
+		yield put({ type: 'FETCH_1', data: data1});
+
+		const data = yield call(fetch2, data1.oldUrl);
+		console.log("data2", data);
 		yield put({ type: 'FETCH_1', data});
 
 	} catch(err) {

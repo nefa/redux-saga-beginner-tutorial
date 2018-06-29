@@ -4,15 +4,15 @@ let initialState = {
   dataReady:false
 }
 
-function handleFetch(tate) {
+function handleFetch(state) {
   return Object.assign({}, state, {data: state.data, dataReady: true})
 }
 
 export /*default*/ function sagaInterceptor(state, action) {
-  return counter(action.data, action);
+  return mainReducer(action.data, action);
 }
 
-export default function counter(state = initialState, action) {
+export default function mainReducer(state = initialState, action) {
   console.log("state / action in store ==>", state, action);
   
   switch (action.type) {
